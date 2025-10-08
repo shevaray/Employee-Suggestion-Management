@@ -1,47 +1,53 @@
 main {
-  background: var(--hestia-primary-color-200);
+  background: var(--white);
   display: flex;
-  min-height: 100dvh;
-  overflow: scroll;
   position: relative;
+  overflow: scroll;
 }
 
 .sidebar-wrapper {
+  height: 100%;
+  width: 200px;
   position: fixed;
 }
 
 .main-body {
   width: 100%;
-  padding: 0 0 15px 180px;
+  min-height: 100dvh;
+  background-color: var(--white);
+  padding: 0 0 15px 200px;
 }
 
-.logo-wrapper {
+.page-title {
   display: flex;
-  justify-content: flex-end;
-  position: relative;
-  padding: 20px 50px 0 0;
+  gap: 16px;
+  font-weight: 400;
+}
 
-  .logo {
-    width: 90.28px;
-    height: 28.57px;
-  }
+.menu-icon-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  .bg-img {
-    width: 434.38px;
-    height: 396.47px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 0;
+  svg:hover {
+    cursor: pointer;
   }
+}
+
+.menu-icon {
+  display: none;
 }
 
 .router-outlet-wrapper {
-  padding: 0 32px 0 0;
+  padding: 32px;
 }
 
-@media screen and (min-width: 1800px) {
-  main {
-    width: 1800px !important;
+@media screen and (max-width: 992px) {
+  .main-body {
+    padding: 4px 0;
+  }
+
+  .menu-icon {
+    display: flex;
   }
 }
