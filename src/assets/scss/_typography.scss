@@ -1,0 +1,77 @@
+.esm-font-config {
+  line-height: 120%;
+  letter-spacing: 0;
+  margin: 0;
+  color: unset;
+
+  &::selection {
+    background-color: var(--esm-gray-200);
+  }
+}
+
+/*** use for Hero Titles ***/
+h1 {
+  @extend .esm-font-config;
+  font-size: 48px;
+  font-weight: 300;
+}
+
+/*** use for Announcement/Greetings ***/
+h2 {
+  @extend .esm-font-config;
+  font-size: 40px;
+  font-weight: 200;
+}
+
+/*** use for Section Title ***/
+h3 {
+  @extend .esm-font-config;
+  font-size: 36px;
+  font-weight: 150;
+}
+
+/*** use for Page/Header Title ***/
+h4 {
+  @extend .esm-font-config;
+  font-size: 24px;
+  font-weight: 150;
+}
+
+/*** use for Body Title ***/
+h5 {
+  @extend .esm-font-config;
+  font-size: 18px;
+  font-weight: 120;
+}
+
+/*** use for Subject Title ***/
+h6 {
+  @extend .esm-font-config;
+  font-size: 16px;
+  font-weight: 100;
+}
+
+/*** PARAGRAPHS ***/
+p {
+  @extend .esm-font-config;
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.esm-p-sm {
+  @extend .esm-font-config;
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.esm-p-lg {
+  @extend .esm-font-config;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+.esm-p-label {
+  @extend .esm-font-config;
+  font-size: 14px;
+  font-weight: 100;
+}
