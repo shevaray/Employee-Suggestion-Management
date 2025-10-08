@@ -1,0 +1,47 @@
+main {
+  background: var(--hestia-primary-color-200);
+  display: flex;
+  min-height: 100dvh;
+  overflow: scroll;
+  position: relative;
+}
+
+.sidebar-wrapper {
+  position: fixed;
+}
+
+.main-body {
+  width: 100%;
+  padding: 0 0 15px 180px;
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  padding: 20px 50px 0 0;
+
+  .logo {
+    width: 90.28px;
+    height: 28.57px;
+  }
+
+  .bg-img {
+    width: 434.38px;
+    height: 396.47px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+  }
+}
+
+.router-outlet-wrapper {
+  padding: 0 32px 0 0;
+}
+
+@media screen and (min-width: 1800px) {
+  main {
+    width: 1800px !important;
+  }
+}
