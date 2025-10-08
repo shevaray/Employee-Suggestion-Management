@@ -1,0 +1,17 @@
+<main>
+  <section class="sidebar-wrapper">
+    <ul>
+      <li
+        *ngFor="let option of menu"
+        #rla="routerLinkActive"
+        [routerLinkActive]="'nav-link-active'"
+        class="sidebar-icon-wrapper"
+      >
+        <a [routerLink]="[option?.route]">
+          <svg-icon [src]="option?.icon" [svgClass]="'sidebar-icon'"></svg-icon>
+          {{ option?.option }}
+        </a>
+      </li>
+    </ul>
+  </section>
+</main>

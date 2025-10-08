@@ -1,16 +1,23 @@
 <main>
-  <div class="sidebar-wrapper">
-    <!-- <hestia-sidebar></hestia-sidebar> -->
+  <div
+    class="sidebar-wrapper"
+    [ngClass]="isCollapsed ? 'sidebar-wrapper' : 'display-none'"
+  >
+    <esm-sidebar></esm-sidebar>
   </div>
 
   <div class="main-body">
-    <section class="logo-wrapper">
-      <img src="/assets/images/logo.png" alt="logo" class="logo" />
-      <img src="/assets/images/dashboard-bg.png" alt="bg-img" class="bg-img" />
-    </section>
-
     <section class="router-outlet-wrapper">
-      <!-- <router-outlet></router-outlet> -->
+      <div class="menu-icon-wrapper">
+        <h4 class="page-title">{{ pageTitle | titlecase }}</h4>
+
+        <svg-icon
+          [ngClass]="'menu-icon'"
+          [src]="'assets/icons/menu.svg'"
+          (click)="onCollapseSidebar()"
+        ></svg-icon>
+      </div>
+      <router-outlet></router-outlet>
     </section>
   </div>
 </main>
