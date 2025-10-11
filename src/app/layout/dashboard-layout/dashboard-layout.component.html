@@ -1,22 +1,10 @@
 <main>
-  <div
-    class="sidebar-wrapper"
-    [ngClass]="isCollapsed ? 'sidebar-wrapper' : 'display-none'"
-  >
+  <div class="sidebar" [ngClass]="isCollapsed ? '' : 'collapsed'">
     <esm-sidebar></esm-sidebar>
   </div>
 
   <div class="main-body">
     <section class="router-outlet-wrapper">
-      <div class="menu-icon-wrapper">
-        <h4 class="page-title">{{ pageTitle | titlecase }}</h4>
-
-        <svg-icon
-          [ngClass]="'menu-icon'"
-          [src]="'assets/icons/menu.svg'"
-          (click)="onCollapseSidebar()"
-        ></svg-icon>
-      </div>
       <router-outlet></router-outlet>
     </section>
   </div>

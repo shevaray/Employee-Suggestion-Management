@@ -24,3 +24,11 @@ body {
 .display-none {
   display: none;
 }
+
+.table-wrapper {
+  overflow-x: scroll;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}

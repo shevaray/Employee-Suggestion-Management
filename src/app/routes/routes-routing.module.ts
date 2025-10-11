@@ -13,6 +13,9 @@ const routes: Routes = [
       import('./suggestions/suggestions-routing.module').then(
         (m) => m.SuggestionsRoutingModule
       ),
+    data: {
+      breadcrumb: 'Suggestions',
+    },
   },
   {
     path: 'employees',
@@ -20,6 +23,9 @@ const routes: Routes = [
       import('./employees/employees-routing.module').then(
         (m) => m.EmployeesRoutingModule
       ),
+    data: {
+      breadcrumb: 'Employees',
+    },
   },
 ];
 

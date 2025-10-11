@@ -1,0 +1,19 @@
+.ant-pagination-item-active,
+.ant-pagination-item:hover,
+.ant-pagination-next .ant-pagination-item-link:hover,
+.ant-pagination-prev .ant-pagination-item-link:hover {
+  border-color: var(--primary-color-100);
+  &:hover {
+    color: var(--primary-color-100);
+    border-color: var(--primary-color-100);
+  }
+}
+
+.ant-pagination-item-active a,
+.ant-pagination-item a {
+  color: var(--primary-color-100);
+
+  &:hover {
+    color: var(--primary-color-100);
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { UtilityService } from 'src/app/core/service/utility.service';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -11,24 +11,19 @@ export class DashboardLayoutComponent implements OnInit {
   onWindowResize() {
     this.onCheckScreenSize();
   }
+  constructor(private utilitySrv: UtilityService) {}
 
-  isCollapsed: boolean = true;
-
-  constructor(private router: Router) {}
+  isCollapsed: any;
 
   ngOnInit(): void {
     this.onCheckScreenSize();
   }
 
-  get pageTitle(): string {
-    return this.router.url.split('/')[1];
-  }
-
-  onCollapseSidebar() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-
   onCheckScreenSize() {
-    this.isCollapsed = window.screen.width <= 992 ? false : true;
+    const condition = window.screen.width <= 992 ? false : true;
+    this.utilitySrv.setCollapsed(condition);
+    this.utilitySrv.isCollapsed$.subscribe(
+      (value) => (this.isCollapsed = value)
+    );
   }
 }

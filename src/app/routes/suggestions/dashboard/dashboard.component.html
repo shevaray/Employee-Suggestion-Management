@@ -1,0 +1,161 @@
+<main>
+  <div nz-row [nzGutter]="[16, 8]" class="filter-wrapper">
+    <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="4">
+      <form [formGroup]="filterByTypeForm">
+        <nz-select
+          formControlName="type"
+          name="type"
+          nzPlaceHolder="Type"
+          nz-tooltip
+          nzTooltipTitle="Select Type"
+          [nzTooltipPlacement]="toolTipPlacement"
+          [nzTooltipColor]="'#2e9191'"
+          [nzShowSearch]="true"
+          [nzAllowClear]="true"
+          [nzPlacement]="'bottomLeft'"
+          (ngModelChange)="onFilterByType($event)"
+        >
+          <nz-option
+            *ngFor="let option of types"
+            [nzValue]="option.value"
+            [nzLabel]="option.option"
+          ></nz-option>
+        </nz-select>
+      </form>
+    </section>
+
+    <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="4">
+      <form [formGroup]="filterByPriorityForm">
+        <nz-select
+          formControlName="priority"
+          name="priority"
+          nzPlaceHolder="Priority"
+          nz-tooltip
+          nzTooltipTitle="Select Priority"
+          [nzTooltipPlacement]="toolTipPlacement"
+          [nzTooltipColor]="'#2e9191'"
+          [nzShowSearch]="true"
+          [nzAllowClear]="true"
+          [nzPlacement]="'bottomLeft'"
+          (ngModelChange)="onFilterByPriority($event)"
+        >
+          <nz-option
+            *ngFor="let option of priorities"
+            [nzValue]="option.value"
+            [nzLabel]="option.option"
+          ></nz-option>
+        </nz-select>
+      </form>
+    </section>
+
+    <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="4">
+      <form [formGroup]="filterByStatusForm">
+        <nz-select
+          formControlName="status"
+          name="status"
+          nzPlaceHolder="Status"
+          nz-tooltip
+          nzTooltipTitle="Select Status"
+          [nzTooltipPlacement]="toolTipPlacement"
+          [nzTooltipColor]="'#2e9191'"
+          [nzShowSearch]="true"
+          [nzAllowClear]="true"
+          [nzPlacement]="'bottomLeft'"
+          (ngModelChange)="onFilterByStatus($event)"
+        >
+          <nz-option
+            *ngFor="let option of statuses"
+            [nzValue]="option.value"
+            [nzLabel]="option.option"
+          ></nz-option>
+        </nz-select>
+      </form>
+    </section>
+
+    <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="4">
+      <form [formGroup]="filterBySourceForm">
+        <nz-select
+          formControlName="source"
+          name="source"
+          nzPlaceHolder="Source"
+          nz-tooltip
+          nzTooltipTitle="Select Source"
+          [nzTooltipPlacement]="toolTipPlacement"
+          [nzTooltipColor]="'#2e9191'"
+          [nzShowSearch]="true"
+          [nzAllowClear]="true"
+          [nzPlacement]="'bottomLeft'"
+          (ngModelChange)="onFilterBySource($event)"
+        >
+          <nz-option
+            *ngFor="let option of sources"
+            [nzValue]="option.value"
+            [nzLabel]="option.option"
+          ></nz-option>
+        </nz-select>
+      </form>
+    </section>
+  </div>
+
+  <div class="table-wrapper">
+    <nz-table
+      #basicTable
+      [nzFooter]="pagination"
+      [nzShowPagination]="false"
+      [nzData]="suggestions"
+      [nzNoResult]="empty"
+    >
+      <ng-template #pagination>
+        <nz-pagination
+          nzShowSizeChanger
+          [nzTotal]="total"
+          [nzPageSizeOptions]="pageSizeOptions"
+          [nzPageSize]="pageSize"
+          [nzPageIndex]="currentPage"
+          [nzShowTotal]="totalTemplate"
+          [nzResponsive]="true"
+          (nzPageIndexChange)="onNavigatePage($event)"
+          (nzPageSizeChange)="onChangePageSize($event)"
+        ></nz-pagination>
+      </ng-template>
+      <ng-template #totalTemplate let-total
+        >Total {{ total }} items</ng-template
+      >
+
+      <thead>
+        <tr>
+          <!-- <th scope="col"></th> -->
+          <th scope="col" nzWidth="300px">description</th>
+          <th scope="col">type</th>
+          <th scope="col">priority</th>
+          <th scope="col">status</th>
+          <th scope="col">source</th>
+          <th scope="col">notes</th>
+          <th scope="col" nzWidth="130px">Created On</th>
+          <th scope="col" nzWidth="130px">Updated On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <!-- <td
+            [nzShowCheckbox]="true"
+            [(ngModel)]="data.id"
+            (nzCheckedChange)="onItemChecked(data, $event)"
+          ></td> -->
+          <td>{{ data.description }}</td>
+          <td>{{ data.type | titlecase }}</td>
+          <td>{{ data.priority | titlecase }}</td>
+          <td noWrap>{{ data.status.replace("_", " ") | titlecase }}</td>
+          <td>{{ data.source | titlecase }}</td>
+          <td>{{ data.notes }}</td>
+          <td>{{ data.dateCreated | date }}</td>
+          <td>{{ data.dateUpdated | date }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+    <ng-template #empty>
+      <nz-empty></nz-empty>
+    </ng-template>
+  </div>
+</main>

@@ -1,17 +1,17 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import * as AppActions from '../app/app.action';
-// import * as fromUsers from '../users/users.reducer';
-// import * as fromUserDetail from '../user-detail/user-detail.reducer';
+import * as fromSuggestions from '../suggestions/suggestions.reducer';
+import * as fromEmployees from '../employees/employee.reducer';
 
 export interface AppState {
-  // users: fromUsers.State;
-  // userDetail: fromUserDetail.State;
+  suggestions: fromSuggestions.State;
+  employees: fromEmployees.State;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
-  // users: fromUsers.usersReducer,
-  // userDetail: fromUserDetail.userDetailReducer,
+  suggestions: fromSuggestions.suggestionsReducer,
+  employees: fromEmployees.employeesReducer,
 };
 
 export function resetStoreMetaReducer<State extends {}>(
