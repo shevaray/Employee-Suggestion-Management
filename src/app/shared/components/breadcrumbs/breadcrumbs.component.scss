@@ -1,0 +1,40 @@
+.breadcrumbs {
+  font-size: 16px;
+  position: absolute;
+  margin-top: -36.8px;
+  right: 20px;
+}
+
+img {
+  width: 15px;
+  height: 15px;
+  margin-top: -5px;
+}
+
+::ng-deep {
+  .ant-breadcrumb {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .ant-breadcrumb a {
+    font-size: 16px;
+  }
+
+  nz-breadcrumb-item:last-child a {
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .breadcrumbs {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .breadcrumbs {
+    margin-top: -20.8px;
+  }
+}

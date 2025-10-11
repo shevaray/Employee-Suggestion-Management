@@ -1,16 +1,58 @@
 <main>
-  <section class="sidebar-wrapper">
+  <section class="sidebar">
+    <!-- [routerLinkActive]="'nav-link-active'" -->
     <ul>
       <li
         *ngFor="let option of menu"
         #rla="routerLinkActive"
-        [routerLinkActive]="'nav-link-active'"
+        [routerLinkActive]="option?.children ? '' : 'nav-link-active'"
         class="sidebar-icon-wrapper"
       >
-        <a [routerLink]="[option?.route]">
+        <a *ngIf="!option?.route" (click)="toggleDropdown(option)">
           <svg-icon [src]="option?.icon" [svgClass]="'sidebar-icon'"></svg-icon>
           {{ option?.option }}
+
+          <span class="caret-icon-wrapper" *ngIf="option?.children">
+            <svg-icon
+              src="assets/icons/chevron-down.svg"
+              [svgClass]="
+                option?.collapsed ? 'caret-icon-rotate' : 'caret-icon'
+              "
+              [applyClass]="true"
+            ></svg-icon>
+          </span>
         </a>
+
+        <a *ngIf="option?.route" [routerLink]="[option?.route]">
+          <svg-icon [src]="option?.icon" [svgClass]="'sidebar-icon'"></svg-icon>
+          {{ option?.option }}
+
+          <span class="caret-icon-wrapper" *ngIf="option?.children">
+            <svg-icon
+              src="assets/icons/chevron-down.svg"
+              [svgClass]="
+                option?.collapsed ? 'caret-icon-rotate' : 'caret-icon'
+              "
+              [applyClass]="true"
+            ></svg-icon>
+          </span>
+        </a>
+
+        <ul *ngIf="option?.collapsed" class="sub-menu">
+          <li
+            *ngFor="let subOption of option.children"
+            #rla="routerLinkActive"
+            [routerLinkActive]="subOption.children ? '' : 'sub-nav-link-active'"
+          >
+            <a
+              *ngIf="subOption?.route"
+              class="sub-nav-link"
+              [routerLink]="[subOption?.route]"
+            >
+              {{ subOption?.option | titlecase }}
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
   </section>

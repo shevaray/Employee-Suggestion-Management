@@ -15,6 +15,11 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { EFFECTS } from './store/effects.module';
+import { SharedModule } from '@shared';
+import { RoutesModule } from './routes/routes.module';
+import { NoWrapDirective } from './core/directives/no-wrap.directive';
 
 registerLocaleData(en);
 
@@ -25,16 +30,16 @@ registerLocaleData(en);
     AppRoutingModule,
     LayoutModule,
     HttpClientModule,
+    RoutesModule,
     StoreModule.forRoot(fromApp.appReducer, {
       metaReducers: fromApp.metaReducers,
     }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: isDevMode() }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FormsModule,
     BrowserAnimationsModule,
+    EffectsModule.forRoot([...EFFECTS]),
   ],
-  providers: [
-    { provide: NZ_I18N, useValue: en_US }
-  ],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

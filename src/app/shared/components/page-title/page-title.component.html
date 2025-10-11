@@ -1,0 +1,11 @@
+<main>
+  <div class="menu-icon-wrapper">
+    <h4 class="page-title">{{ PageTitle | titlecase }}</h4>
+
+    <svg-icon
+      [ngClass]="'menu-icon'"
+      [src]="'assets/icons/menu.svg'"
+      (click)="onCollapseSidebar()"
+    ></svg-icon>
+  </div>
+</main>

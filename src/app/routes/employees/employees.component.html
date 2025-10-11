@@ -1,1 +1,49 @@
-<p>employees works!</p>
+<esm-page-title [PageTitle]="'employees'"></esm-page-title>
+<main>
+  <div class="table-wrapper">
+    <nz-table
+      #basicTable
+      [nzTemplateMode]="false"
+      [nzFooter]="pagination"
+      [nzShowPagination]="false"
+      [nzData]="employee"
+      [nzNoResult]="empty"
+    >
+      <ng-template #pagination>
+        <nz-pagination
+          *ngIf="employee?.length"
+          nzShowSizeChanger
+          [nzPageIndex]="currentPage"
+          [nzTotal]="total"
+          [nzPageSizeOptions]="pageSizeOptions"
+          [nzPageSize]="pageSize"
+          [nzShowTotal]="totalTemplate"
+          (nzPageIndexChange)="onNavigatePage($event)"
+          (nzPageSizeChange)="onChangePageSize($event)"
+        ></nz-pagination>
+      </ng-template>
+      <ng-template #totalTemplate let-total
+        >Total {{ total }} items</ng-template
+      >
+
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Risk Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.name | titlecase }}</td>
+          <td>{{ data.department | titlecase }}</td>
+          <td>{{ data.riskLevel | titlecase }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+    <ng-template #empty>
+      <nz-empty></nz-empty>
+    </ng-template>
+  </div>
+</main>

@@ -1,0 +1,26 @@
+.page-title {
+  display: flex;
+  gap: 16px;
+  font-weight: 400;
+}
+
+.menu-icon {
+  display: none;
+}
+
+.menu-icon-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+
+  svg:hover {
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .menu-icon {
+    display: flex;
+  }
+}

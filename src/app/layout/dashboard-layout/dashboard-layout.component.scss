@@ -5,10 +5,17 @@ main {
   overflow: scroll;
 }
 
-.sidebar-wrapper {
+.sidebar {
   height: 100%;
   width: 200px;
   position: fixed;
+  z-index: 2;
+  transform: translateX(0);
+  transition: all ease-in-out 0.5s;
+}
+
+.collapsed {
+  transform: translateX(-100%);
 }
 
 .main-body {
@@ -18,28 +25,9 @@ main {
   padding: 0 0 15px 200px;
 }
 
-.page-title {
-  display: flex;
-  gap: 16px;
-  font-weight: 400;
-}
-
-.menu-icon-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  svg:hover {
-    cursor: pointer;
-  }
-}
-
-.menu-icon {
-  display: none;
-}
-
 .router-outlet-wrapper {
   padding: 32px;
+  transition: all ease-in-out 0.5s;
 }
 
 @media screen and (max-width: 992px) {
@@ -47,7 +35,7 @@ main {
     padding: 4px 0;
   }
 
-  .menu-icon {
-    display: flex;
+  .router-outlet-wrapper {
+    padding: 16px;
   }
 }
