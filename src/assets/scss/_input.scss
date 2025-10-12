@@ -1,0 +1,10 @@
+.ant-input:hover,
+.ant-input-focused,
+.ant-input:focus {
+  border-color: var(--primary-color-300);
+}
+
+.ant-input-focused,
+.ant-input:focus {
+  box-shadow: 0 0 0 2px rgba($color: var(--primary-color-300), $alpha: 1);
+}

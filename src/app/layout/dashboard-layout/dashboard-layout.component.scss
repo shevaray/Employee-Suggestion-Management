@@ -2,20 +2,6 @@ main {
   background: var(--white);
   display: flex;
   position: relative;
-  overflow: scroll;
-}
-
-.sidebar {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 2;
-  transform: translateX(0);
-  transition: all ease-in-out 0.5s;
-}
-
-.collapsed {
-  transform: translateX(-100%);
 }
 
 .main-body {

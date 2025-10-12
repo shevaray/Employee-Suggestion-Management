@@ -1,9 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Suggestion } from 'src/app/core/interface/suggestion.interface';
-import {
-  LoadSuggestionsFail,
-  LoadSuggestionsSuccess,
-} from './suggestions.action';
+import * as fromSuggestionsAction from './suggestions.action';
 
 export interface State {
   data: Suggestion[];
@@ -17,14 +14,23 @@ export const suggestionState: State = {
 
 const _suggestionsReducer = createReducer(
   suggestionState,
-  on(LoadSuggestionsSuccess, (state, action) => {
+  on(fromSuggestionsAction.LoadSuggestionsSuccess, (state, action) => {
     return {
       ...state,
       data: action.data,
       errorMessage: '',
     };
   }),
-  on(LoadSuggestionsFail, (state, action) => {
+
+  on(fromSuggestionsAction.AddSuggestion, (state, { payload }) => {
+    return {
+      ...state,
+      data: [...state.data, payload],
+      errorMessage: '',
+    };
+  }),
+
+  on(fromSuggestionsAction.LoadSuggestionsFail, (state, action) => {
     return {
       ...state,
       data: [],

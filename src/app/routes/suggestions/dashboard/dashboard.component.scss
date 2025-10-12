@@ -3,3 +3,18 @@ main {
   flex-direction: column;
   gap: 24px;
 }
+
+.td-clickable {
+  white-space: nowrap;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.modal-content {
+  gap: 8px;
+
+  button {
+    width: 100%;
+  }
+}

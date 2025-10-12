@@ -1,6 +1,5 @@
-<main>
+<main [ngClass]="isCollapsed ? '' : 'collapsed'">
   <section class="sidebar">
-    <!-- [routerLinkActive]="'nav-link-active'" -->
     <ul>
       <li
         *ngFor="let option of menu"
@@ -8,9 +7,13 @@
         [routerLinkActive]="option?.children ? '' : 'nav-link-active'"
         class="sidebar-icon-wrapper"
       >
-        <a *ngIf="!option?.route" (click)="toggleDropdown(option)">
+        <a
+          *ngIf="!option?.route"
+          (click)="toggleDropdown(option)"
+          [ngClass]="option?.isChildActive ? 'nav-link-active' : ''"
+        >
           <svg-icon [src]="option?.icon" [svgClass]="'sidebar-icon'"></svg-icon>
-          {{ option?.option }}
+          <span>{{ option?.option }}</span>
 
           <span class="caret-icon-wrapper" *ngIf="option?.children">
             <svg-icon

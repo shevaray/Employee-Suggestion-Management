@@ -14,7 +14,7 @@ const routes: Routes = [
         (m) => m.SuggestionsRoutingModule
       ),
     data: {
-      breadcrumb: 'Suggestions',
+      breadcrumb: 'Dashboard',
     },
   },
   {

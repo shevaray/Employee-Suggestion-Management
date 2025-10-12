@@ -5,16 +5,16 @@ import { RouterModule } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { NG_ZORRO_MODULES } from './ng-zorro-modules.module';
 import { PageTitleComponent } from './components/page-title/page-title.component';
-import { NoWrapDirective } from '../core/directives/no-wrap.directive';
 import { FormsModule } from '@angular/forms';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { CursorPointerDirective } from '../core/directives/cursor-pointer.directive';
 
 @NgModule({
   declarations: [
     SidebarComponent,
     PageTitleComponent,
     BreadcrumbsComponent,
-    NoWrapDirective,
+    CursorPointerDirective,
   ],
   imports: [
     CommonModule,
@@ -28,7 +28,7 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
     SidebarComponent,
     AngularSvgIconModule,
     PageTitleComponent,
-    NoWrapDirective,
+    CursorPointerDirective,
     FormsModule,
     BreadcrumbsComponent,
   ],
