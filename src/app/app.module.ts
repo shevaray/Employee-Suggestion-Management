@@ -17,9 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { EFFECTS } from './store/effects.module';
-import { SharedModule } from '@shared';
 import { RoutesModule } from './routes/routes.module';
-import { NoWrapDirective } from './core/directives/no-wrap.directive';
 
 registerLocaleData(en);
 

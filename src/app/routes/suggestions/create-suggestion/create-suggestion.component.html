@@ -1,2 +1,165 @@
 <esm-breadcrumbs></esm-breadcrumbs>
-<p>create-suggestion works!</p>
+<main>
+  <div class="form-wrapper">
+    <form nz-form (ngSubmit)="onSubmit()" [formGroup]="suggestionForm">
+      <div nz-row [nzGutter]="[16, 8]">
+        <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="employee" nzRequired>
+              Employee:
+            </nz-form-label>
+
+            <nz-form-control [nzSpan]="24">
+              <nz-select
+                formControlName="employeeId"
+                name="employee"
+                nzPlaceHolder="Employee"
+                nz-tooltip
+                nzTooltipTitle="Select Employee"
+                [nzTooltipPlacement]="toolTipPlacement"
+                [nzTooltipColor]="'#2e9191'"
+                [nzShowSearch]="true"
+                [nzAllowClear]="true"
+                [nzPlacement]="'bottomLeft'"
+              >
+                <nz-option
+                  *ngFor="let option of employees"
+                  [nzValue]="option.id"
+                  [nzLabel]="option.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </section>
+
+        <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="type" nzRequired>
+              Type:
+            </nz-form-label>
+
+            <nz-form-control [nzSpan]="24">
+              <nz-select
+                formControlName="type"
+                name="type"
+                nzPlaceHolder="Type"
+                nz-tooltip
+                nzTooltipTitle="Select Type"
+                [nzTooltipPlacement]="toolTipPlacement"
+                [nzTooltipColor]="'#2e9191'"
+                [nzShowSearch]="true"
+                [nzAllowClear]="true"
+                [nzPlacement]="'bottomLeft'"
+              >
+                <nz-option
+                  *ngFor="let option of types"
+                  [nzValue]="option.value"
+                  [nzLabel]="option.option"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </section>
+
+        <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="priority" nzRequired>
+              Priority:
+            </nz-form-label>
+
+            <nz-form-control [nzSpan]="24">
+              <nz-select
+                formControlName="priority"
+                name="priority"
+                nzPlaceHolder="Priority"
+                nz-tooltip
+                nzTooltipTitle="Select Priority"
+                [nzTooltipPlacement]="toolTipPlacement"
+                [nzTooltipColor]="'#2e9191'"
+                [nzShowSearch]="true"
+                [nzAllowClear]="true"
+                [nzPlacement]="'bottomLeft'"
+              >
+                <nz-option
+                  *ngFor="let option of priorities"
+                  [nzValue]="option.value"
+                  [nzLabel]="option.option"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </section>
+
+        <section nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="status" nzRequired>
+              Status:
+            </nz-form-label>
+
+            <nz-form-control [nzSpan]="24">
+              <nz-select
+                formControlName="status"
+                name="status"
+                nzPlaceHolder="Status"
+                nz-tooltip
+                nzTooltipTitle="Select Status"
+                [nzTooltipPlacement]="toolTipPlacement"
+                [nzTooltipColor]="'#2e9191'"
+                [nzShowSearch]="true"
+                [nzAllowClear]="true"
+                [nzPlacement]="'bottomLeft'"
+              >
+                <nz-option
+                  *ngFor="let option of statuses"
+                  [nzValue]="option.value"
+                  [nzLabel]="option.option"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </section>
+      </div>
+
+      <div nz-row [nzGutter]="[16, 8]">
+        <section nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="description" nzRequired>
+              Description:
+            </nz-form-label>
+
+            <nz-form-control [nzSpan]="24">
+              <textarea
+                rows="4"
+                nz-input
+                formControlName="description"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </section>
+
+        <section nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="description">
+              Note:
+            </nz-form-label>
+
+            <nz-form-control [nzSpan]="24">
+              <textarea rows="4" nz-input formControlName="notes"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </section>
+      </div>
+
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        nzSize="large"
+        class="submit-btn"
+        [disabled]="!suggestionForm.valid"
+      >
+        {{ btnTextPrefix + " Suggestion" | titlecase }}
+      </button>
+    </form>
+  </div>
+</main>

@@ -6,7 +6,7 @@ import {
   LoadSuggestionsFail,
   LoadSuggestionsSuccess,
 } from './suggestions.action';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, debounceTime, exhaustMap, map, of } from 'rxjs';
 
 @Injectable()
 export class SuggestionsEffects {

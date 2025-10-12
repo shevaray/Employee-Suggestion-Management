@@ -1,0 +1,16 @@
+.form-wrapper {
+  background: var(--white-200);
+  padding: 32px;
+  border: 1px solid var(--black-100);
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 992px) {
+  main {
+    padding-top: 16px;
+  }
+
+  .form-wrapper {
+    padding: 16px;
+  }
+}

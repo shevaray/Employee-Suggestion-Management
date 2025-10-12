@@ -3,6 +3,7 @@ export const SIDEBAR_MENU = [
     id: 1,
     option: 'Suggestions',
     icon: '/assets/icons/chat.svg',
+    isChildActive: false,
     children: [
       {
         option: 'dashboard',

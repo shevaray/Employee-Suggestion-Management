@@ -8,6 +8,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 export const NG_ZORRO_MODULES = [
   NzButtonModule,
@@ -20,4 +22,6 @@ export const NG_ZORRO_MODULES = [
   NzEmptyModule,
   NzSelectModule,
   NzBreadCrumbModule,
+  NzFormModule,
+  NzModalModule,
 ];

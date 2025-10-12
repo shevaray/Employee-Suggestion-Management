@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,13 @@ import { Suggestion } from 'src/app/core/interface/suggestion.interface';
 import * as fromAppState from 'src/app/store/app/app.reducer';
 import * as fromSuggestionsAction from 'src/app/store/suggestions/suggestions.action';
 import * as fromSuggestionsSelector from 'src/app/store/suggestions/suggestions.selector';
+import * as fromEmployeeAction from 'src/app/store/employees/employee.action';
+import * as fromEmployeeSelector from 'src/app/store/employees/employee.selector';
+import { Employee } from 'src/app/core/interface/employee.interface';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StorageService } from 'src/app/core/service/storage.service';
+import { StorageKeys } from 'src/app/core/enum/storage-keys.enum';
+import { NotificationService } from 'src/app/core/service/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,19 +27,31 @@ import * as fromSuggestionsSelector from 'src/app/store/suggestions/suggestions.
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild('modalContent') modalContent!: TemplateRef<any>;
+
+  // ARRAYS
   suggestions$!: Observable<Suggestion[]>;
+  employees$!: Observable<Employee[]>;
   suggestions: Suggestion[] = [];
+  employees: Employee[] = [];
   types: any[] = TYPES;
   priorities: any[] = PRIORITIES;
   statuses: any[] = STATUSES;
   sources: any[] = SOURCES;
-  selectedSuggestion: any[] = [];
-  filterOptions: any = {};
-  toolTipPlacement: string = 'bottom';
-  isChecked: boolean = false;
+
+  // BOOLEANS
   isActive: boolean = false;
 
+  // STRINGS
+  toolTipPlacement: string = 'topLeft';
+  selectedSuggestionId!: string;
+  selectedStatus!: string;
+
+  // OBJECTS / ANT TYPE
+  filterOptions: any = {};
+
   // FORM GROUPS
+  filterByEmployeeForm!: FormGroup;
   filterByTypeForm!: FormGroup;
   filterByPriorityForm!: FormGroup;
   filterByStatusForm!: FormGroup;
@@ -48,15 +67,26 @@ export class DashboardComponent implements OnInit {
     private store: Store<fromAppState.AppState>,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NzModalService,
+    private storageSrv: StorageService,
+    private notifyServ: NotificationService
   ) {}
 
   ngOnInit(): void {
+    this.loadEmployees();
     this.hasQueryParams();
     this.buildFilterByPriorityForm();
     this.buildFilterBySourceForm();
     this.buildFilterByStatusForm();
     this.buildFilterByTypeForm();
+    this.buildFilterByEmployeeForm();
+  }
+
+  buildFilterByEmployeeForm() {
+    this.filterByEmployeeForm = this.fb.group({
+      employeeId: [''],
+    });
   }
 
   buildFilterByTypeForm() {
@@ -98,7 +128,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getSuggestions() {
+  loadSuggestions() {
     this.store.dispatch(fromSuggestionsAction.LoadSuggestions());
     this.suggestions$ = this.store.select(
       fromSuggestionsSelector.getSuggestions
@@ -112,9 +142,25 @@ export class DashboardComponent implements OnInit {
 
         this.total = res?.length;
         this.suggestions = this.paginateData(newData);
-        console.log(this.suggestions);
       },
     });
+  }
+
+  loadEmployees() {
+    this.store.dispatch(fromEmployeeAction.LoadEmployees());
+    this.employees$ = this.store.select(fromEmployeeSelector.getEmployees);
+    this.employees$.subscribe({
+      next: (res) => {
+        this.employees = res;
+      },
+    });
+  }
+
+  getEmployeeName(id: string): string {
+    const employeeName = this.employees.filter(
+      (employee) => employee.id == id
+    )[0]?.name;
+    return employeeName;
   }
 
   paginateData(data: any) {
@@ -131,11 +177,26 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  onEditSuggestion(id: string) {
+    this.router.navigate([`/suggestions/create-suggestion/${id}`]);
+  }
+
   onChangePageSize(size: any) {
     this.router.navigate([], {
       queryParams: { page: 1, pageSize: size },
       queryParamsHandling: 'merge',
     });
+  }
+
+  onFilterByEmployee(evt: any) {
+    if (!evt) {
+      delete this.filterOptions['employeeId'];
+      this.filterData();
+      return;
+    }
+
+    this.filterOptions['employeeId'] = evt;
+    this.filterData();
   }
 
   onFilterByType(evt: any) {
@@ -187,17 +248,12 @@ export class DashboardComponent implements OnInit {
     const keys = Object.keys(filterOptions);
 
     if (!Object.keys(this.filterOptions).length) {
-      this.getSuggestions();
+      this.loadSuggestions();
       return;
     }
 
     this.suggestions$.subscribe({
       next: (res) => {
-        // Appends checked property to the data
-        const newData = res.map((data) => {
-          return { ...data, checked: false };
-        });
-
         this.suggestions = res.filter((item: any) => {
           const matches = keys.every((key) => item[key] === filterOptions[key]);
           if (matches) {
@@ -211,25 +267,35 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  onItemChecked(value: any, event: any) {
-    let maxItem = 1;
-    if (event.target.checked) {
-      this.selectedSuggestion.push(value);
-      this.isChecked = true;
+  onSelectStatus(evnt: any) {
+    this.selectedStatus = evnt;
+  }
 
-      if (this.selectedSuggestion.length > maxItem) {
-        this.selectedSuggestion[0].checked = false;
-        this.selectedSuggestion.splice(0, 1);
-      }
-    } else {
-      for (let i = 0; i < this.selectedSuggestion.length; i++) {
-        if (this.selectedSuggestion[i] === value) {
-          this.selectedSuggestion.splice(i, 1);
-        }
-      }
+  openStatusModal(id: string) {
+    this.selectedSuggestionId = id;
 
-      this.isChecked = false;
-      this.isActive = false;
-    }
+    this.modalService.confirm({
+      nzTitle: 'Update Status',
+      nzContent: this.modalContent,
+      nzOkText: null,
+      nzCancelText: null,
+    });
+  }
+
+  onUpdateStatus() {
+    this.suggestions.map((data: any) => {
+      if (data.id == this.selectedSuggestionId) {
+        data.status = this.selectedStatus;
+        data.dateUpdated = new Date();
+      }
+    });
+
+    this.storageSrv.setLocalStorageItem(StorageKeys.suggestions, [
+      ...this.suggestions,
+    ]);
+
+    this.loadSuggestions();
+    this.modalService.closeAll();
+    this.notifyServ.success('Suggestions', 'Status successfully update!');
   }
 }

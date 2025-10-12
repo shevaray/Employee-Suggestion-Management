@@ -29,6 +29,13 @@ const routes: Routes = [
         },
       },
       {
+        path: 'create-suggestion/:id',
+        component: CreateSuggestionComponent,
+        data: {
+          breadcrumb: 'update-suggestion',
+        },
+      },
+      {
         path: '**',
         redirectTo: 'dashboard',
         pathMatch: 'full',
