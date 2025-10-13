@@ -1,32 +1,28 @@
 # EmployeeSuggestionManagement
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+## Running the Application
 
-## Package Manager
+### 1.⁠ ⁠Clone the repository and install dependencies:
 
-Run `npm install` after cloning this repository to install all dependencies.
+```bash
+git clone https://github.com/shevaray/Employee-Suggestion-Management.git
+cd Employee-Suggestion-Management
+npm install
+```
 
-## Development server
+### 2. Start the development server:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+ng serve
+```
 
-## Code scaffolding
+The app will run on http://localhost:4200.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### To build for production:
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
+```bash
+ng build
+```
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
@@ -74,6 +70,38 @@ Filtering options include **employee**, **type**, **status**, **source**, and **
 
 > **Note:** This process updates only the status of the suggestion.
 
+## Architectural Decisions
+
+## Overview
+
+The system was designed with three primary objectives: **usability**, **maintainability**, and **scalability**.  
+Each architectural choice was made to enable administrators to manage large datasets efficiently and accurately, while ensuring the system can evolve alongside organizational needs.
+
+## Key Decisions
+
+### 1. Separation of Concerns
+
+The system is organized so that each core function including user management, suggestion tracking, and status updates operates independently.  
+This modular structure facilitates maintenance, testing, and updates without impacting unrelated components.
+
+### 2. Efficient Data Management
+
+Given the volume of data administrators handle, the system incorporates **pagination** and **dynamic filtering**.  
+**NgRx state management** is used to maintain a consistent and predictable application state, ensuring **high responsiveness** and performance even with extensive datasets.
+
+### 3. User Centered Design
+
+The interface is crafted around administrative workflows, prioritizing **clarity, simplicity, and responsiveness**.  
+Elements such as intuitive navigation, structured layouts, breadcrumbs, and contextual modals enhance usability across devices and screen sizes.
+
+### 4. Scalability and Extensibility
+
+The architecture supports future growth, allowing additional modules such as analytics and reporting tools to be integrated seamlessly without major redesigns.
+
+### 5. Data Integrity
+
+Immutable fields such as the “Source” of a suggestion ensure accurate record keeping and prevent inadvertent data modification, preserving a reliable audit trail.
+
 ## Summary
 
-This documentation provides an overview of the administrative workflow and interaction design principles implemented to support efficient data management and user-friendly operations within the application.
+The Employee Suggestion Management application is an Angular-based platform designed to streamline the creation, tracking, and management of employee suggestions. It emphasizes usability, maintainability, and scalability to support administrators handling large datasets efficiently.
