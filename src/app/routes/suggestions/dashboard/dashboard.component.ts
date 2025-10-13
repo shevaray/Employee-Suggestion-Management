@@ -279,6 +279,7 @@ export class DashboardComponent implements OnInit {
       nzContent: this.modalContent,
       nzOkText: null,
       nzCancelText: null,
+      nzOnCancel: () => this.filterByStatusForm.reset(),
     });
   }
 
@@ -295,6 +296,7 @@ export class DashboardComponent implements OnInit {
     ]);
 
     this.loadSuggestions();
+    this.filterByStatusForm.reset();
     this.modalService.closeAll();
     this.notifyServ.success('Suggestions', 'Status successfully update!');
   }
